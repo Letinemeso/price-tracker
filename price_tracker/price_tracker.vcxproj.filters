@@ -13,10 +13,33 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Исходные файлы\writer_function">
+      <UniqueIdentifier>{770be327-1970-4eef-9add-3d4212e9453c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\website">
+      <UniqueIdentifier>{29afb631-39ae-4596-9ae6-65c498be9f47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\parse_functions">
+      <UniqueIdentifier>{11b55540-66a6-4426-bcaa-d875b1383724}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="website.cpp">
+      <Filter>Исходные файлы\website</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="writer_function.h">
+      <Filter>Исходные файлы\writer_function</Filter>
+    </ClInclude>
+    <ClInclude Include="website.h">
+      <Filter>Исходные файлы\website</Filter>
+    </ClInclude>
+    <ClInclude Include="parse_functions.h">
+      <Filter>Исходные файлы\parse_functions</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

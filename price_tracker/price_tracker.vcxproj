@@ -152,6 +152,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="website.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="parse_functions.h" />
+    <ClInclude Include="website.h" />
+    <ClInclude Include="writer_function.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

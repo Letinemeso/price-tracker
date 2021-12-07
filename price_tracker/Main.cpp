@@ -3,25 +3,19 @@
 #include <iostream>
 #include "curl/curl.h"
 
-static std::string buffer;
+#include "writer_function.h"
 
-static int writer(char* data, size_t size, size_t nmemb, std::string* buffer)
-{
-	int result = 0;
+#include "parse_functions.h"
 
-	if (buffer != NULL)
-	{
-	
-		buffer->append(data, size * nmemb);
-		
-		result = size * nmemb;
-	}
-
-	return result;
-}
+#include "website.h"
 
 int main()
 {
+	setlocale(0, "rus");
+
+	//std::string buffer;
+	/*std::basic_string<unsigned char> buffer;
+
 	CURL* curl;
 	CURLcode result;
 	
@@ -29,21 +23,35 @@ int main()
 	
 	if (curl)
 	{
-		curl_easy_setopt(curl, CURLOPT_URL, "https://translate.google.com/?hl=ru");
+		std::string aaa("google.com");
 
-		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writer);
+		curl_easy_setopt(curl, CURLOPT_URL, aaa);
+
+		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writer_function);
 
 		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &buffer);
 
 		result = curl_easy_perform(curl);
 
 		if (result == CURLE_OK)
-
-			std::cout << "ass\n\n" << buffer << "\n\n\n" << buffer.size();
+			for (unsigned int i = 0; i < buffer.size(); ++i) std::cout << buffer[i];
 		else
 			std::cout << "Îøèáêà!\n";
 	}
 
-	curl_easy_cleanup(curl);
+	curl_easy_cleanup(curl);*/
+
+	/*std::string data("https://www.youtube.com/watch?v=TTAHPehElzg");
+	std::string chunk("watch");
+
+	std::cout << get_index_of_chunk(*(std::basic_string<unsigned char>*) & data, *(std::basic_string<unsigned char>*) & chunk) << "\n"
+		<< get_index_after_chunk(*(std::basic_string<unsigned char>*) & data, *(std::basic_string<unsigned char>*) & chunk);*/
+
+	
+	website site;
+
+	site.set_chunk_to_parse(std::basic_string<unsigned char>((const unsigned char*)"qwert{{}}op"));
+
+
 	return 0;
 }
