@@ -1,5 +1,6 @@
-﻿  website.cpp
-C:\Users\User\Desktop\price_tracker\price_tracker\website.cpp(24,48): warning C4018: <: несоответствие типов со знаком и без знака
-C:\Users\User\Desktop\price_tracker\price_tracker\website.cpp(62,29): warning C4018: <: несоответствие типов со знаком и без знака
-C:\Users\User\Desktop\price_tracker\price_tracker\website.cpp(67,29): warning C4018: <: несоответствие типов со знаком и без знака
+﻿  Main.cpp
+  website.cpp
+C:\Users\User\Desktop\price_tracker\price_tracker\website.cpp(28,48): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\User\Desktop\price_tracker\price_tracker\website.cpp(74,29): warning C4018: <: несоответствие типов со знаком и без знака
+  Создание кода...
   price_tracker.vcxproj -> C:\Users\User\Desktop\price_tracker\Debug\price_tracker.exe

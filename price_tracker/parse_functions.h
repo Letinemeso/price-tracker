@@ -26,7 +26,7 @@ static int get_index_after_chunk(const std::basic_string<unsigned char>& _data, 
 
 static int get_index_of_chunk(const std::basic_string<unsigned char>& _data, const std::basic_string<unsigned char>& _chunk, unsigned int _offset = 0)
 {
-	for (unsigned int i = 0; i < _data.size(); ++i)
+	for (unsigned int i = _offset; i < _data.size(); ++i)
 		if (chunks_are_equal(_data, _chunk, i)) return i;
 	return -1;
 }

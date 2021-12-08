@@ -1,6 +1,8 @@
 #define CURL_STATICLIB
 #include <string>
 #include <iostream>
+#include <fstream>
+
 #include "curl/curl.h"
 
 #include "writer_function.h"
@@ -9,12 +11,14 @@
 
 #include "website.h"
 
+#define STR(str) *(std::string*)&str
+
 int main()
 {
 	setlocale(0, "rus");
 
-	//std::string buffer;
-	/*std::basic_string<unsigned char> buffer;
+	/*std::string buffer;
+	std::string error_buffer;
 
 	CURL* curl;
 	CURLcode result;
@@ -23,11 +27,12 @@ int main()
 	
 	if (curl)
 	{
-		std::string aaa("google.com");
+		std::string aaa("https://translate.google.com/?hl=ru");
 
-		curl_easy_setopt(curl, CURLOPT_URL, aaa);
+		curl_easy_setopt(curl, CURLOPT_URL, "https://translate.google.com/?hl=ru");
 
 		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writer_function);
+		curl_easy_setopt(curl, CURLOPT_ERRORBUFFER, error_buffer);
 
 		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &buffer);
 
@@ -36,21 +41,52 @@ int main()
 		if (result == CURLE_OK)
 			for (unsigned int i = 0; i < buffer.size(); ++i) std::cout << buffer[i];
 		else
-			std::cout << "Îøèáêà!\n";
+			std::cout << "Îøèáêà!\n" << error_buffer << "\n";
 	}
 
 	curl_easy_cleanup(curl);*/
 
-	/*std::string data("https://www.youtube.com/watch?v=TTAHPehElzg");
-	std::string chunk("watch");
 
-	std::cout << get_index_of_chunk(*(std::basic_string<unsigned char>*) & data, *(std::basic_string<unsigned char>*) & chunk) << "\n"
-		<< get_index_after_chunk(*(std::basic_string<unsigned char>*) & data, *(std::basic_string<unsigned char>*) & chunk);*/
-
-	
 	website site;
 
-	site.set_chunk_to_parse(std::basic_string<unsigned char>((const unsigned char*)"qwert{{}}op"));
+	site.set_chunk_to_parse(std::basic_string<unsigned char>((const unsigned char*)"<span class=\"price-value-main\"><span class=\"js-item-price\" itemprop=\"price\" content=\"{{}}\">"));
+	site.set_link(std::basic_string<unsigned char>((const unsigned char*)"https://www.avito.ru/sankt-peterburg/avtomobili/audi_80_1988_2278158637"));
+
+	/*std::ifstream input("input.txt", std::ios::in);
+	std::basic_string<unsigned char> input_data;
+
+	if (input.is_open() == false)
+	{
+		std::cout << "ass\n\n";
+		return 1;
+	}
+
+	input.seekg(0, std::ios::end);
+	unsigned int size = input.tellg();
+	input.seekg(0, std::ios::beg);
+
+	if (size == 0)
+	{
+		std::cout << "ass2\n\n";
+		return 1;
+	}
+
+	input_data.reserve(size);
+
+	do
+		input_data += (unsigned char)input.get();
+	while (input.tellg() < size);
+
+	input.close();
+
+
+	site.set_data_to_parse_test(input_data);
+
+	site.parse_data();*/
+
+	site.process();
+
+	std::cout << STR(site.get_parsed_data());
 
 
 	return 0;

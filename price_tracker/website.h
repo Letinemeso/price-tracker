@@ -23,6 +23,7 @@ private:
 	void download_data();
 	void parse_data();
 
+
 public:
 	website();
 	~website();
@@ -33,7 +34,9 @@ public:
 	const std::basic_string<unsigned char>& get_link() const;
 	const std::basic_string<unsigned char>& get_parsed_data() const;
 
-	
+	void process();
+
+
 };
 
 #endif

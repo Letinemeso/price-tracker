@@ -4,7 +4,10 @@
 #include <iostream>
 void website::download_data()
 {
-	curl_easy_perform(curl_handle);
+	retreived_data.clear();
+	retreived_data.shrink_to_fit();
+
+	if (curl_easy_perform(curl_handle) != CURLE_OK) std::cout << "error\n\n";
 }
 
 void website::parse_data()
@@ -19,10 +22,17 @@ void website::parse_data()
 	if (end_of_data_to_parse == -1) return;
 
 	parsed_data.clear();
-	parsed_data.resize(end_of_data_to_parse - data_to_parse_offset + 1);
+	parsed_data.shrink_to_fit();
+	parsed_data.reserve(end_of_data_to_parse - data_to_parse_offset + 1);
 
 	for (unsigned int i = data_to_parse_offset; i < end_of_data_to_parse; ++i)
 		parsed_data += retreived_data[i];
+}
+
+void website::process()
+{
+	download_data();
+	parse_data();
 }
 
 
@@ -42,7 +52,7 @@ website::~website()
 void website::set_link(const std::basic_string<unsigned char>& _link)
 {
 	link = _link;
-	curl_easy_setopt(curl_handle, CURLOPT_URL, link);
+	curl_easy_setopt(curl_handle, CURLOPT_URL, link.c_str());
 }
 
 void website::set_chunk_to_parse(const std::basic_string<unsigned char>& _chtp)
@@ -55,30 +65,16 @@ void website::set_chunk_to_parse(const std::basic_string<unsigned char>& _chtp)
 	if (after_brackets_offset == -1) return;
 	
 	chunk_to_parse__left.clear();
-	chunk_to_parse__left.resize(brackets_offset);
+	chunk_to_parse__left.shrink_to_fit();
+	chunk_to_parse__left.reserve(brackets_offset);
 	chunk_to_parse__right.clear();
-	chunk_to_parse__right.resize(_chtp.size() - after_brackets_offset + 1);
+	chunk_to_parse__right.shrink_to_fit();
+	chunk_to_parse__right.reserve(_chtp.size() - after_brackets_offset + 1);
 
 	for (unsigned int i = 0; i < brackets_offset; ++i)
 		chunk_to_parse__left += _chtp[i];
 	for (unsigned int i = after_brackets_offset; i < _chtp.size(); ++i)
-		chunk_to_parse__left += _chtp[i];
-
-	for (unsigned int i = 0; i < brackets_offset; ++i)
-		std::cout << _chtp[i];
-	std::cout << "\n\n";
-	for (unsigned int i = after_brackets_offset; i < _chtp.size(); ++i)
-		std::cout << _chtp[i];
-
-
-	for (unsigned int i = 0; i < chunk_to_parse__left.size(); ++i)
-		std::cout << chunk_to_parse__left[i];
-
-	std::cout << "\n\n";
-
-	for (unsigned int i = 0; i < chunk_to_parse__right.size(); ++i)
-		std::cout << chunk_to_parse__right[i];
-
+		chunk_to_parse__right += _chtp[i];
 }
 
 const std::basic_string<unsigned char>& website::get_link() const
