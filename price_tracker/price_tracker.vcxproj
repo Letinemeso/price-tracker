@@ -152,9 +152,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="manager.cpp" />
     <ClCompile Include="website.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="manager.h" />
     <ClInclude Include="parse_functions.h" />
     <ClInclude Include="website.h" />
     <ClInclude Include="writer_function.h" />
