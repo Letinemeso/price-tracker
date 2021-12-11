@@ -1,0 +1,10 @@
+website
+{
+	link*https://www.avito.ru/saransk/avtomobili/audi_q7_2015_2243501626*
+	chunk*<span class="price-value-main"><span class="js-item-price" itemprop="price" content="{{}}">*
+}
+website
+{
+	link*https://daniel.haxx.se/blog/2020/03/01/imagining-a-thread-safe-curl_global_init/*
+	chunk*<h2>{{}}</h2>*
+}

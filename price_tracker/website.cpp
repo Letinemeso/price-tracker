@@ -1,32 +1,50 @@
 #include "website.h"
 
-
 #include <iostream>
+
 void website::download_data()
 {
 	retreived_data.clear();
 	retreived_data.shrink_to_fit();
 
-	if (curl_easy_perform(curl_handle) != CURLE_OK) std::cout << "error\n\n";
+	if (curl_easy_perform(curl_handle) != CURLE_OK) std::cout << "error\n";
 }
 
 void website::parse_data()
 {
-	if (chunk_to_parse__left.size() == 0 || chunk_to_parse__right.size() == 0 || retreived_data.size() == 0) return;
-	if (retreived_data.size() < chunk_to_parse__left.size() + chunk_to_parse__right.size()) return;
-
-	int data_to_parse_offset = get_index_after_chunk(retreived_data, chunk_to_parse__left);
-	if (data_to_parse_offset == -1) return;
-
-	int end_of_data_to_parse = get_index_of_chunk(retreived_data, chunk_to_parse__right, data_to_parse_offset);
-	if (end_of_data_to_parse == -1) return;
+	if ((chunk_to_parse__left.size() == 0 || chunk_to_parse__right.size() == 0 || retreived_data.size() == 0) || 
+		(retreived_data.size() < chunk_to_parse__left.size() + chunk_to_parse__right.size() ) )
+	{
+		retreived_data = (const unsigned char*)"error getting data";
+		return;
+	}
 
 	parsed_data.clear();
 	parsed_data.shrink_to_fit();
-	parsed_data.reserve(end_of_data_to_parse - data_to_parse_offset + 1);
 
-	for (unsigned int i = data_to_parse_offset; i < end_of_data_to_parse; ++i)
-		parsed_data += retreived_data[i];
+	if (get_index_after_chunk(retreived_data, chunk_to_parse__left) == 0 || get_index_of_chunk(retreived_data, chunk_to_parse__right) == 0)
+	{
+		retreived_data = (const unsigned char*)"specified chunk wasn't found";
+		return;
+	}
+
+	unsigned int offset = 0;
+	while (true)
+	{
+		int data_to_parse_offset = get_index_after_chunk(retreived_data, chunk_to_parse__left, offset);
+		if (data_to_parse_offset == -1) return;
+
+		int end_of_data_to_parse = get_index_of_chunk(retreived_data, chunk_to_parse__right, data_to_parse_offset);
+		if (end_of_data_to_parse == -1) return;
+
+		parsed_data.reserve(end_of_data_to_parse - data_to_parse_offset + 2);
+
+		for (unsigned int i = data_to_parse_offset; i < end_of_data_to_parse; ++i)
+			parsed_data += retreived_data[i];
+		parsed_data += '\n';
+
+		offset = end_of_data_to_parse;
+	}
 }
 
 void website::process()
@@ -36,6 +54,22 @@ void website::process()
 }
 
 
+
+website::website(website&& _other)
+{
+	link = std::move(_other.link);
+	chunk_to_parse__right = std::move(_other.chunk_to_parse__right);
+	chunk_to_parse__right = std::move(_other.chunk_to_parse__right);
+	parsed_data = std::move(_other.parsed_data);
+	retreived_data = std::move(_other.retreived_data);
+
+	curl_easy_cleanup(curl_handle);
+
+	curl_handle = curl_easy_init();
+	curl_easy_setopt(curl_handle, CURLOPT_WRITEFUNCTION, writer_function);
+	curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, &retreived_data);
+	curl_easy_setopt(curl_handle, CURLOPT_URL, link.c_str());
+}
 
 website::website()
 {
@@ -47,6 +81,7 @@ website::website()
 website::~website()
 {
 	curl_easy_cleanup(curl_handle);
+	//delete curl_handle;
 }
 
 void website::set_link(const std::basic_string<unsigned char>& _link)

@@ -1,2 +1,6 @@
 ﻿  Main.cpp
+  manager.cpp
+C:\Users\User\Desktop\price_tracker\price_tracker\manager.cpp(69,30): warning C4244: аргумент: преобразование "std::streamoff" в "const unsigned int", возможна потеря данных
+  Создание кода...
+LINK : warning LNK4098: библиотека по умолчанию "MSVCRT" конфликтует с использованием других библиотек; используйте /NODEFAULTLIB:library
   price_tracker.vcxproj -> C:\Users\User\Desktop\price_tracker\Debug\price_tracker.exe

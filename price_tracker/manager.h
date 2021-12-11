@@ -9,6 +9,8 @@
 #include <vector>
 #include <thread>
 #include <chrono>
+#include <mutex>
+#include <fstream>
 
 #include "website.h"
 #include "parse_functions.h"
@@ -18,23 +20,26 @@ class manager
 private:
 	std::vector<website> websites;
 
-	std::vector<std::thread*> threads;
+	//std::vector<std::thread*> threads;
+	int delay = 1000;
 	std::vector<bool> is_active;
+	std::vector<bool> is_realy_active;
 
-	std::basic_string<unsigned char> path;
 	std::basic_string<unsigned char> raw_input;
 
 private:
 	void parse_data();
-	void thread_function(std::vector<website>::iterator _site, std::vector<bool>::iterator _should_be_active);
+	bool all_threads_stopped();
 
 public:
 	manager();
 	manager(const char* _path);
 	void operator=(const char* _path);
+	~manager();
 	
-	void set_delay(float _delay);
-	void start_parse();
+	void set_delay(int _delay) { delay = _delay; }
+	void start_parsing();
+	void stop_parsing();
 
 };
 
