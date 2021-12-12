@@ -25,8 +25,8 @@ private:
 
 public:
 	website();
-	website(website&& _site);
-	website(const website& _site) = delete;
+	website(website&& _other);
+	website(const website& _other) = delete;
 	~website();
 
 	void set_link(const std::basic_string<unsigned char>& _link);

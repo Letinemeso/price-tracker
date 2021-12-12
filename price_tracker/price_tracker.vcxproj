@@ -161,6 +161,9 @@
     <ClInclude Include="website.h" />
     <ClInclude Include="writer_function.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="data.config" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -7,7 +7,8 @@ void website::download_data()
 	retreived_data.clear();
 	retreived_data.shrink_to_fit();
 
-	if (curl_easy_perform(curl_handle) != CURLE_OK) std::cout << "error\n";
+	if (curl_easy_perform(curl_handle) != CURLE_OK)
+		retreived_data = (const unsigned char*)"error getting answer from website";
 }
 
 void website::parse_data()
@@ -15,7 +16,7 @@ void website::parse_data()
 	if ((chunk_to_parse__left.size() == 0 || chunk_to_parse__right.size() == 0 || retreived_data.size() == 0) || 
 		(retreived_data.size() < chunk_to_parse__left.size() + chunk_to_parse__right.size() ) )
 	{
-		retreived_data = (const unsigned char*)"error getting data";
+		parsed_data = (const unsigned char*)"error getting data";
 		return;
 	}
 
@@ -24,7 +25,7 @@ void website::parse_data()
 
 	if (get_index_after_chunk(retreived_data, chunk_to_parse__left) == 0 || get_index_of_chunk(retreived_data, chunk_to_parse__right) == 0)
 	{
-		retreived_data = (const unsigned char*)"specified chunk wasn't found";
+		parsed_data = (const unsigned char*)"specified chunk wasn't found";
 		return;
 	}
 
@@ -55,20 +56,29 @@ void website::process()
 
 
 
+//website::website(const website& _other)
+//{
+//	link = _other.link;
+//	//chunk_to_parse__left
+//}
+
 website::website(website&& _other)
 {
+	curl_handle = _other.curl_handle;
+	_other.curl_handle = nullptr;
+
 	link = std::move(_other.link);
 	chunk_to_parse__right = std::move(_other.chunk_to_parse__right);
-	chunk_to_parse__right = std::move(_other.chunk_to_parse__right);
+	chunk_to_parse__left = std::move(_other.chunk_to_parse__left);
 	parsed_data = std::move(_other.parsed_data);
 	retreived_data = std::move(_other.retreived_data);
 
-	curl_easy_cleanup(curl_handle);
+	//curl_easy_cleanup(curl_handle);
 
-	curl_handle = curl_easy_init();
-	curl_easy_setopt(curl_handle, CURLOPT_WRITEFUNCTION, writer_function);
+	//curl_handle = curl_easy_init();
+	//curl_easy_setopt(curl_handle, CURLOPT_WRITEFUNCTION, writer_function);
 	curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, &retreived_data);
-	curl_easy_setopt(curl_handle, CURLOPT_URL, link.c_str());
+	//curl_easy_setopt(curl_handle, CURLOPT_URL, link.c_str());
 }
 
 website::website()

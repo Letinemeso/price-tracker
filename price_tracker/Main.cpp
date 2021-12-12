@@ -33,7 +33,7 @@ int main()
 		std::cout << (unsigned char)(site.get_parsed_data()[i]);*/
 
 
-	manager mgr("file.txt");
+	manager mgr("data.config");
 	mgr.set_delay(10000);
 
 	mgr.start_parsing();

@@ -1,6 +1,8 @@
 ﻿  Main.cpp
   manager.cpp
-C:\Users\User\Desktop\price_tracker\price_tracker\manager.cpp(69,30): warning C4244: аргумент: преобразование "std::streamoff" в "const unsigned int", возможна потеря данных
+C:\Users\User\Desktop\price_tracker\price_tracker\manager.cpp(79,30): warning C4244: аргумент: преобразование "std::streamoff" в "const unsigned int", возможна потеря данных
+  website.cpp
+C:\Users\User\Desktop\price_tracker\price_tracker\website.cpp(43,49): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\User\Desktop\price_tracker\price_tracker\website.cpp(119,29): warning C4018: <: несоответствие типов со знаком и без знака
   Создание кода...
-LINK : warning LNK4098: библиотека по умолчанию "MSVCRT" конфликтует с использованием других библиотек; используйте /NODEFAULTLIB:library
   price_tracker.vcxproj -> C:\Users\User\Desktop\price_tracker\Debug\price_tracker.exe

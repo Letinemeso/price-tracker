@@ -39,11 +39,21 @@ void manager::parse_data()
 
 		offset = c_offset;
 
+		/*website temp;
+		temp.set_link(link);
+		temp.set_chunk_to_parse(chunk);
+		websites.push_back(std::move(temp));*/
+
 		websites.push_back(website());
-		std::vector<website>::iterator wit = websites.end();
-		--wit;
-		wit->set_link(link);
-		wit->set_chunk_to_parse(chunk);
+		//std::vector<website>::iterator wit = websites.begin();
+		//--wit;
+		//wit->set_link(link);
+		//wit->set_chunk_to_parse(chunk);
+
+		websites[websites.size() - 1].set_link(link);
+		websites[websites.size() - 1].set_chunk_to_parse(chunk);
+
+		
 
 		is_active.push_back(false);
 		is_realy_active.push_back(false);
@@ -80,12 +90,9 @@ manager::manager(const char* _path)
 manager::~manager()
 {
 	stop_parsing();
-	//std::this_thread::sleep_for(std::chrono::milliseconds(100));
 
 	while(all_threads_stopped() == false)
 		std::this_thread::sleep_for(std::chrono::milliseconds(10));
-
-	//websites.clear();
 }
 
 std::mutex output_mutex;
