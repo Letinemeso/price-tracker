@@ -31,4 +31,12 @@ static int get_index_of_chunk(const std::basic_string<unsigned char>& _data, con
 	return -1;
 }
 
+static bool is_digit(unsigned char _char)
+{
+	unsigned int zero = '0';
+	for (unsigned int i = 0; i < 10; ++i)
+		if (_char == zero + i) return true;
+	return false;
+}
+
 #endif

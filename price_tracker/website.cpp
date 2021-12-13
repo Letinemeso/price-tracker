@@ -102,7 +102,7 @@ void website::set_link(const std::basic_string<unsigned char>& _link)
 
 void website::set_chunk_to_parse(const std::basic_string<unsigned char>& _chtp)
 {
-	std::basic_string<unsigned char> plug((const unsigned char*)"{{}}");
+	std::basic_string<unsigned char> plug((const unsigned char*)"*****");
 	
 	int brackets_offset = get_index_of_chunk(_chtp, plug, 0);
 	if (brackets_offset == -1) return;

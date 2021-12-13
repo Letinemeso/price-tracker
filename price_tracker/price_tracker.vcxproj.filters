@@ -51,9 +51,4 @@
       <Filter>Исходные файлы\manager</Filter>
     </ClInclude>
   </ItemGroup>
-  <ItemGroup>
-    <Text Include="data.config">
-      <Filter>Исходные файлы</Filter>
-    </Text>
-  </ItemGroup>
 </Project>

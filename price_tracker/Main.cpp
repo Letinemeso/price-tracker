@@ -34,7 +34,7 @@ int main()
 
 
 	manager mgr("data.config");
-	mgr.set_delay(10000);
+	//mgr.set_delay(10000);
 
 	mgr.start_parsing();
 
