@@ -1,0 +1,11 @@
+﻿  Main.cpp
+  manager.cpp
+C:\Users\User\Desktop\price_tracker\price_tracker\manager.cpp(93,30): warning C4244: аргумент: преобразование "std::streamoff" в "const unsigned int", возможна потеря данных
+  website.cpp
+C:\Users\User\Desktop\price_tracker\price_tracker\website.cpp(43,49): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\User\Desktop\price_tracker\price_tracker\website.cpp(107,29): warning C4018: <: несоответствие типов со знаком и без знака
+  Создание кода
+  Previous IPDB not found, fall back to full compilation.
+  All 460 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Создание кода завершено
+  price_tracker.vcxproj -> C:\Users\User\Desktop\price_tracker\Release\price_tracker.exe

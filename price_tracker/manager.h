@@ -18,26 +18,26 @@
 class manager
 {
 private:
+	std::basic_string<unsigned char> raw_input;
 	std::vector<website> websites;
 
 	int delay = 3000;
-	std::vector<bool> is_active;
-	std::vector<bool> is_realy_active;
-	std::vector<bool> process_completed;
 
-	bool first_printed = false;
-
-	std::basic_string<unsigned char> raw_input;
-
+	std::basic_string<unsigned char> output_buffer;
 	std::basic_string<unsigned char> output_path;
+
+	bool need_to_process = false;
+	bool is_active = false;
+
+	bool valid = false;
 
 private:
 	void parse_data();
 
-	bool all_threads_stopped();
+	friend void thread_control_function(manager* _mgr);
+	friend void thread_function(manager* _mgr, unsigned int _index, unsigned int* _threads_active);
 
 public:
-	manager();
 	manager(const char* _path);
 	manager(const manager& _other) = delete;
 	manager(manager&& _other) = delete;
@@ -47,6 +47,7 @@ public:
 	void start_parsing();
 	void stop_parsing();
 
+	bool is_valid() { return valid; }
 };
 
 #endif

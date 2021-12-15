@@ -28,6 +28,7 @@ void manager::parse_data()
 		input_delay += raw_input[d_offset];
 		++d_offset;
 	}
+	if (input_delay.size() == 0) return;
 	delay = std::stoi(STR(input_delay));
 
 	unsigned int op_offset = get_index_after_chunk(raw_input, op_tag, d_offset);
@@ -38,17 +39,18 @@ void manager::parse_data()
 		output_path += raw_input[op_offset];
 		++op_offset;
 	}
+	if (output_path.size() == 0) return;
 
 	unsigned int offset = 0;
 
 	while (true)
 	{
 		unsigned int ws_offset = get_index_of_chunk(raw_input, ws_tag, offset);
-		if (ws_offset == -1) return;
+		if (ws_offset == -1) break;
 		unsigned int l_offset = get_index_after_chunk(raw_input, l_tag, ws_offset);
-		if (l_offset == -1) return;
+		if (l_offset == -1) break;
 		unsigned int c_offset = get_index_after_chunk(raw_input, c_tag, ws_offset);
-		if (c_offset == -1) return;
+		if (c_offset == -1) break;
 
 		++l_offset;
 		++c_offset;
@@ -72,19 +74,12 @@ void manager::parse_data()
 
 		websites[websites.size() - 1].set_link(link);
 		websites[websites.size() - 1].set_chunk_to_parse(chunk);
-
-		is_active.push_back(false);
-		is_realy_active.push_back(false);
-		process_completed.push_back(true);
 	}
+
+	if (websites.size() > 0) valid = true;
 }
 
 
-
-manager::manager() 
-{ 
-	raw_input.clear();
-}
 
 manager::manager(const char* _path)
 {
@@ -113,105 +108,65 @@ manager::~manager()
 {
 	stop_parsing();
 
-	while(all_threads_stopped() == false)
-		std::this_thread::sleep_for(std::chrono::milliseconds(10));
+	while (is_active == true) std::this_thread::sleep_for(std::chrono::milliseconds(25));
 }
 
-std::mutex output_mutex, completed_set_mutex;
-void thread_function
-(
-	std::vector<website>* _websites, std::vector<bool>* _is_active, std::vector<bool>* _is_realy_active, 
-	std::vector<bool>* _completed, unsigned int _index, unsigned int _delay, const std::basic_string<unsigned char>* _output_path, bool* _fp
-)
+std::mutex write_mutex;
+void thread_function(manager* _mgr, unsigned int _index, unsigned int* _threads_active)
 {
-	_is_realy_active->at(_index) = true;
+	_mgr->websites[_index].process();
 
-	while ((*_is_active)[_index] != false)
+	write_mutex.lock();
+	_mgr->output_buffer.append(_mgr->websites[_index].get_link());
+	_mgr->output_buffer.append((const unsigned char*)", ");
+	_mgr->output_buffer.append(_mgr->websites[_index].get_parsed_data());
+	_mgr->output_buffer.append((const unsigned char*)",\n");
+	write_mutex.unlock();
+
+	--(*_threads_active);
+}
+
+void thread_control_function(manager* _mgr)
+{
+	_mgr->is_active = true;
+
+	while (_mgr->need_to_process == true)
 	{
-		completed_set_mutex.lock();
-		_completed->at(_index) = false;
-		completed_set_mutex.unlock();
+		_mgr->output_buffer.clear();
+		_mgr->output_buffer.shrink_to_fit();
 
-		for (unsigned int i = 0; i < _completed->size(); ++i)
+		unsigned int threads_active = _mgr->websites.size();
+
+		for (unsigned int i = 0; i < _mgr->websites.size(); ++i)
 		{
-			if (_completed->at(i) == true)
-			{
-				i = 0;
-				std::this_thread::sleep_for(std::chrono::milliseconds(20));
-			}
+			std::thread thr(&thread_function, _mgr, i, &threads_active);
+			thr.detach();
 		}
 
-		_websites->at(_index).process();
-		
-		output_mutex.lock();
-		if(*_output_path == std_tag)
-			std::cout << "link:  " << STR(((*_websites)[_index]).get_link()) << "\ndata:  " << STR(((*_websites)[_index]).get_parsed_data()) << "\n";
+		while (threads_active != 0) std::this_thread::sleep_for(std::chrono::milliseconds(25));
+
+		if (_mgr->output_path == std_tag)
+			std::cout << STR(_mgr->output_buffer) << "\n";
 		else
 		{
-			if (*_fp == false)
-			{
-				*_fp = true;
-				std::ofstream file((const char*)(_output_path->c_str()), std::ios::trunc);
-				if (file.is_open() == true)
-				{
-					file << "link, parsed_data\n,,,\n";
-					file << STR((*_websites)[_index].get_link()) << ", " << STR(((*_websites)[_index]).get_parsed_data()) << "\n";
-					file.close();
-				}
-			}
-			else
-			{
-				std::ofstream file((const char*)(_output_path->c_str()), std::ios::app);
-				if (file.is_open() == true)
-				{
-					file << STR((*_websites)[_index].get_link()) << ", " << STR(((*_websites)[_index]).get_parsed_data()) << "\n";
-					file.close();
-				}
-			}
-			
+			std::ofstream file((const char*)(_mgr->output_path.c_str()), std::ios::trunc);
+			file.clear();
+			file << "link, data\n,,,\n" << STR(_mgr->output_buffer) << "\n";
+			file.close();
 		}
-		output_mutex.unlock();
-
-
-
-		completed_set_mutex.lock();
-		_completed->at(_index) = true;
-		completed_set_mutex.unlock();
-
-		for (unsigned int i = 0; i < _completed->size(); ++i)
-		{
-			if (_completed->at(i) == false)
-			{
-				i = 0;
-				std::this_thread::sleep_for(std::chrono::milliseconds(20));
-			}
-		}
-
-		std::this_thread::sleep_for(std::chrono::milliseconds(_delay));
 	}
 
-	_is_realy_active->at(_index) = false;
-}
-
-bool manager::all_threads_stopped()
-{
-	for (unsigned int i = 0; i < is_realy_active.size(); ++i)
-		if (is_realy_active.at(i) == true) return false;
-	return true;
+	_mgr->is_active = false;
 }
 
 void manager::start_parsing()
 {
-	for (unsigned int i = 0; i < websites.size(); ++i)
-	{
-		is_active[i] = true;
-		std::thread thr(&thread_function, &websites, &is_active, &is_realy_active, &process_completed, i, delay, &output_path, &first_printed);
-		thr.detach();
-	}
+	need_to_process = true;
+	std::thread control_thread(&thread_control_function, this);
+	control_thread.detach();
 }
 
 void manager::stop_parsing()
 {
-	for (unsigned int i = 0; i < websites.size(); ++i)
-		is_active[i] = false;
+	need_to_process = false;
 }

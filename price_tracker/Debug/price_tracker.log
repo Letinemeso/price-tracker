@@ -1,3 +1,2 @@
-﻿  manager.cpp
-C:\Users\User\Desktop\price_tracker\price_tracker\manager.cpp(98,30): warning C4244: аргумент: преобразование "std::streamoff" в "const unsigned int", возможна потеря данных
+﻿  Main.cpp
   price_tracker.vcxproj -> C:\Users\User\Desktop\price_tracker\Debug\price_tracker.exe

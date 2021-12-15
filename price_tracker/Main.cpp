@@ -15,34 +15,31 @@
 
 int main()
 {
-	//curl_global_init(CURL_GLOBAL_ALL);
-
 	setlocale(0, "rus");
 
-	/*website site;
-
-	site.set_chunk_to_parse(std::basic_string<unsigned char>((const unsigned char*)
-		"\"description\":\"{{}}\",\"name\":"
-		));	
-	site.set_link(std::basic_string<unsigned char>((const unsigned char*)"https://auto.ru/sankt-peterburg/cars/land_rover/all/"));
-
-
-	site.process();
-
-	for (unsigned int i = 0; i < site.get_parsed_data().size(); ++i)
-		std::cout << (unsigned char)(site.get_parsed_data()[i]);*/
-
-
 	manager mgr("data.config");
-	//mgr.set_delay(10000);
+	if (!mgr.is_valid())
+	{
+		std::cout << "EL PROBLEMO: some errors in config\n";
+		while (true) std::this_thread::sleep_for(std::chrono::milliseconds(25));
+		return -1;
+	}
 
-	mgr.start_parsing();
+	
 
-	std::this_thread::sleep_for(std::chrono::seconds(10));
+	//std::this_thread::sleep_for(std::chrono::seconds(5));
+
+	std::string input;
+	while (true)
+	{
+		std::cin >> input;
+		std::cout << "\n";
+		if (input == "exit") break;
+		else if(input == "start") mgr.start_parsing();
+		else if(input == "stop") mgr.stop_parsing();
+	}
 
 	mgr.stop_parsing();
-
-	//curl_global_cleanup();
 
 	return 0;
 }

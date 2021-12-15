@@ -42,7 +42,7 @@ void website::parse_data()
 
 		for (unsigned int i = data_to_parse_offset; i < end_of_data_to_parse; ++i)
 			parsed_data += retreived_data[i];
-		parsed_data += '\n';
+		parsed_data += (const unsigned char*)"; ";
 
 		offset = end_of_data_to_parse;
 	}
@@ -56,12 +56,6 @@ void website::process()
 
 
 
-//website::website(const website& _other)
-//{
-//	link = _other.link;
-//	//chunk_to_parse__left
-//}
-
 website::website(website&& _other)
 {
 	curl_handle = _other.curl_handle;
@@ -73,12 +67,7 @@ website::website(website&& _other)
 	parsed_data = std::move(_other.parsed_data);
 	retreived_data = std::move(_other.retreived_data);
 
-	//curl_easy_cleanup(curl_handle);
-
-	//curl_handle = curl_easy_init();
-	//curl_easy_setopt(curl_handle, CURLOPT_WRITEFUNCTION, writer_function);
 	curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, &retreived_data);
-	//curl_easy_setopt(curl_handle, CURLOPT_URL, link.c_str());
 }
 
 website::website()
@@ -91,7 +80,6 @@ website::website()
 website::~website()
 {
 	curl_easy_cleanup(curl_handle);
-	//delete curl_handle;
 }
 
 void website::set_link(const std::basic_string<unsigned char>& _link)

@@ -1,0 +1,40 @@
+"data.config" is a file for setting configuration for a program.
+it can look like this:
+
+delay{2000}
+output{file.txt}
+website
+{
+	link{https://www.avito.ru/sankt-peterburg/avtomobili/mazda/cx-5-ASgBAgICAkTgtg3mmCjitg2Uoyg?cd=1&radius=0}
+	chunk{цена от ***** руб.}
+}
+website
+{
+	link{https://daniel.haxx.se/blog/2020/03/01/imagining-a-thread-safe-curl_global_init/}
+	chunk{<h2>*****</h2>}
+}
+website{...}
+...
+
+
+
+here is description of availible properties:
+	delay - sets delay (in milliseconds) between requests (it is not recomended to set low settings due to possible block on website)
+
+	output - sets output file (or type in COUT to make program use standart output (console))
+
+	website - unlimited (ish) property which sets website data to request
+
+	link - well, a link for a GET request to website
+
+	chunk - some chunk of data, which will be attempted to be found. ***** is a part which will be extracted and printed / stored to file
+
+
+
+program itself has a very simple menu which consists of 3 commands:
+	start - start downloading and parsing data from websites, specified in config
+	
+	stop - kinda obvious
+
+	exit - also
+
