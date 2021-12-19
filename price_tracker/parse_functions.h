@@ -31,6 +31,13 @@ static int get_index_of_chunk(const std::basic_string<unsigned char>& _data, con
 	return -1;
 }
 
+static int get_next_sym_index(const std::basic_string<unsigned char>& _data, unsigned char _sym, unsigned int _offset)
+{
+	for (unsigned int i = _offset; i < _data.size(); ++i)
+		if (_data[i] == _sym) return i;
+	return -1;
+}
+
 static bool is_digit(unsigned char _char)
 {
 	unsigned int zero = '0';

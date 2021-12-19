@@ -20,14 +20,10 @@ int main()
 	manager mgr("data.config");
 	if (!mgr.is_valid())
 	{
-		std::cout << "EL PROBLEMO: some errors in config\n";
+		std::cout << "some errors in config\n";
 		while (true) std::this_thread::sleep_for(std::chrono::milliseconds(25));
 		return -1;
 	}
-
-	
-
-	//std::this_thread::sleep_for(std::chrono::seconds(5));
 
 	std::string input;
 	while (true)

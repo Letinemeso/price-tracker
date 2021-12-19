@@ -21,10 +21,12 @@ private:
 	std::basic_string<unsigned char> raw_input;
 	std::vector<website> websites;
 
-	int delay = 3000;
+	int delay;
 
 	std::basic_string<unsigned char> output_buffer;
+
 	std::basic_string<unsigned char> output_path;
+	bool need_to_write_header = false;
 
 	bool need_to_process = false;
 	bool is_active = false;
