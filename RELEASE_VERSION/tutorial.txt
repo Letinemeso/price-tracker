@@ -1,7 +1,7 @@
 "data.config" is a file for setting configuration for a program.
 it can look like this:
 
-delay{2000}
+delay{2}
 output{file.txt}
 website
 {
@@ -19,7 +19,7 @@ website{...}
 
 
 here is description of availible properties:
-	delay - sets delay (in milliseconds) between requests (it is not recomended to set low settings due to possible block on website)
+	delay - sets delay (in seconds) between requests (it is not recomended to set low settings due to possible block on website)
 
 	output - sets output file (or type in COUT to make program use standart output (console))
 

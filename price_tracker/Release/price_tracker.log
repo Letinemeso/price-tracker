@@ -1,10 +1,9 @@
 ﻿  manager.cpp
-C:\Users\User\Desktop\price_tracker\price_tracker\manager.cpp(146,30): warning C4244: аргумент: преобразование "std::streamoff" в "const unsigned int", возможна потеря данных
-  website.cpp
-C:\Users\User\Desktop\price_tracker\price_tracker\website.cpp(43,49): warning C4018: <: несоответствие типов со знаком и без знака
-C:\Users\User\Desktop\price_tracker\price_tracker\website.cpp(107,29): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\User\Desktop\price_tracker\price_tracker\manager.cpp(52,1): warning C4067: непредвиденные лексемы за директивой препроцессора, требуется newline
+C:\Users\User\Desktop\price_tracker\price_tracker\manager.cpp(169,1): warning C4067: непредвиденные лексемы за директивой препроцессора, требуется newline
+C:\Users\User\Desktop\price_tracker\price_tracker\manager.cpp(183,30): warning C4244: аргумент: преобразование "std::streamoff" в "const unsigned int", возможна потеря данных
   Создание кода
-  2 of 461 functions ( 0.4%) were compiled, the rest were copied from previous compilation.
+  18 of 498 functions ( 3.6%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
     2 functions had inline decision re-evaluated but remain unchanged
   Создание кода завершено

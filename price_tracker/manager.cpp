@@ -1,8 +1,5 @@
 #include "manager.h"
 
-#include <iostream>
-#include <fstream>
-
 #ifndef STR
 #define STR(str) *(std::string*)&str
 #endif
@@ -15,90 +12,113 @@ std::basic_string<unsigned char> op_tag((const unsigned char*)"output");
 
 std::basic_string<unsigned char> std_tag((const unsigned char*)"COUT");
 
-std::basic_string<unsigned char> header((const unsigned char*)"link,data\n,,,\n");
+std::basic_string<unsigned char> header((const unsigned char*)"date,link,data\n,,,\n");
+
+
+
+std::string get_date()
+{
+	std::time_t time = std::time(0);
+	std::tm now;
+	gmtime_s(&now, &time);
+
+	std::string buffer;
+	buffer.shrink_to_fit();
+
+	buffer += std::to_string(now.tm_year + 1900);
+	buffer += '-';
+
+	buffer += std::to_string(now.tm_mon);
+	buffer += '-';
+
+	buffer += std::to_string(now.tm_mday);
+	buffer += ' ';
+
+	buffer += std::to_string(now.tm_hour);
+	buffer += ':';
+
+	buffer += std::to_string(now.tm_min);
+	buffer += ':';
+
+	buffer += std::to_string(now.tm_sec);
+
+	return buffer;
+}
+
+
 
 void manager::parse_data()
 {
+	#ifdef ASSERT(error)
+	#undef ASSERT(error)
+	#endif
+	#define ASSERT(error) { std::cout << error << "\n"; return; }
+
 	//getting delay data (delay{1000})
 	unsigned int d_offset = get_index_after_chunk(raw_input, d_tag);
-	if (d_offset == -1)
-	{
-		std::cout << "field \"delay\" wasn't found\n";
-		return;
-	}
+	if (d_offset == -1) ASSERT("field \"delay\" wasn't found");
 
 	d_offset = get_next_sym_index(raw_input, '{', d_offset);
-	if (d_offset == -1)
-	{
-		std::cout << "field \"delay\" is missing '{'\n";
-		return;
-	}
+	if (d_offset == -1) ASSERT("field \"delay\" is missing '{'");
 	++d_offset;
 	unsigned int d_end = get_next_sym_index(raw_input, '}', d_offset);
-	if (d_end == -1)
-	{
-		std::cout << "field \"delay\" is missing '}'\n";
-		return;
-	}
+	if (d_end == -1) ASSERT("field \"delay\" is missing '}'");
 
 	std::basic_string<unsigned char> input_delay;
 
 	for (unsigned int i = d_offset; i < d_end; ++i)
 	{
-		if (is_digit(raw_input[i]) == false)
-		{
-			std::cout << "field \"delay\" contains invalid data\n";
-			return;
-		}
+		if (is_digit(raw_input[i]) == false) ASSERT("field \"delay\" contains invalid data");
 		input_delay += raw_input[i];
 	}
-	if (input_delay.size() == 0)
-	{
-		std::cout << "field \"delay\" contains no data\n";
-		return;
-	}
+	if (input_delay.size() == 0) ASSERT("field \"delay\" contains no data");
 	delay = std::stoi(STR(input_delay));
+	std::cout << "delay set to " << delay << "\n\n";
 
 	//getting output data (output{COUT} / output{file.txt})
-	unsigned int op_offset = get_index_after_chunk(raw_input, op_tag, d_end + 1);
-	if (op_offset == -1)
-	{
-		std::cout << "field \"output\" wasn't found\n";
-		return;
-	}
+	unsigned int op_offset = get_index_after_chunk(raw_input, op_tag);
+	if (op_offset == -1) ASSERT("field \"output\" wasn't found");
 
 	op_offset = get_next_sym_index(raw_input, '{', op_offset);
-	if (op_offset == -1)
-	{
-		std::cout << "field \"output\" is missing '{'\n";
-		return;
-	}
+	if (op_offset == -1) ASSERT("field \"output\" is missing '{'");
 	++op_offset;
 	unsigned int op_end = get_next_sym_index(raw_input, '}', op_offset);
-	if (op_end == -1)
-	{
-		std::cout << "field \"output\" is missing '}'\n";
-		return;
-	}
+	if (op_end == -1) ASSERT("field \"output\" is missing '}'");
 
 	for (unsigned int i = op_offset; i < op_end; ++i)
 		output_path += raw_input[i];
 
-	if (output_path.size() == 0)
-	{
-		std::cout << "field \"output\" contains no data\n";
-		return;
-	}
+	if (output_path.size() == 0) ASSERT("field \"output\" contains no data");
+	std::cout << "output path set to " << STR(output_path) << "\n";
 
-	std::ifstream test((const char*)output_path.c_str(), std::ios::in);
-	if (test.is_open())
+	//checking if file contains previously parsed data
+	if (output_path != std_tag)
 	{
-		std::basic_string<unsigned char> test_input;
-		while (test.peek() != -1)
-			test_input += test.get();
+		std::ifstream test((const char*)output_path.c_str(), std::ios::in);
+		if (test.is_open())
+		{
+			std::basic_string<unsigned char> test_input;
+			while (test.peek() != -1)
+				test_input += test.get();
+			test.close();
 
-		if (get_index_after_chunk(test_input, header) == -1) need_to_write_header = true;
-		test.close();
+			if (get_index_after_chunk(test_input, header) == -1)
+			{
+				std::ofstream header_output_file((const char*)output_path.c_str(), std::ios::trunc);
+				header_output_file << STR(header);
+				header_output_file.close();
+
+				std::cout << "file " << STR(output_path) << " didn't match program's output format and was truncated\n\n";
+			}
+			else std::cout << "previously parsed data found. next data will append to it\n\n";
+		}
+		else
+		{
+			std::ofstream header_output_file((const char*)output_path.c_str(), std::ios::trunc);
+			header_output_file << STR(header);
+			header_output_file.close();
+			std::cout << "file " << STR(output_path) << " could not be openned. created new file\n\n";
+		}
 	}
 
 	//getting websites' data (website{link{smth.com}chunk{ass}})
@@ -137,10 +157,16 @@ void manager::parse_data()
 
 		websites[websites.size() - 1].set_link(link);
 		websites[websites.size() - 1].set_chunk_to_parse(chunk);
+
+		std::cout << "found website's data:\n"
+			<< "\tlink:  " << STR(link) << "\n"
+			<< "\tchunk to find and parse:  " << STR(chunk) << "\n\n";
 	}
 
 	if (websites.size() > 0) valid = true;
-	else std::cout << "no websites' data could be parsed properly\n";
+	else ASSERT("no websites' data could be parsed properly");
+
+	#undef ASSERT(error)
 }
 
 
@@ -215,9 +241,9 @@ void thread_control_function(manager* _mgr)
 		if (_mgr->output_path == std_tag) std::cout << STR(_mgr->output_buffer) << "\n";
 		else
 		{
-			std::ofstream file((const char*)(_mgr->output_path.c_str()), std::ios::trunc);
+			std::ofstream file((const char*)(_mgr->output_path.c_str()), std::ios::app);
 			file.clear();
-			file << "link,data\n,,,\n" << STR(_mgr->output_buffer) << "\n";
+			file << '\"' << get_date() << "\"," << STR(_mgr->output_buffer) << "\n";
 			file.close();
 		}
 

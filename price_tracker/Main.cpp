@@ -3,11 +3,9 @@
 #include <iostream>
 #include <fstream>
 
-#include "curl/curl.h"
-
-#include "website.h"
-
 #include "manager.h"
+
+#include <chrono>
 
 #ifndef STR
 #define STR(str) *(std::string*)&str
@@ -24,6 +22,11 @@ int main()
 		while (true) std::this_thread::sleep_for(std::chrono::milliseconds(25));
 		return -1;
 	}
+	std::cout << "config data was loaded\n\navailible commands:\n"
+		<< "\tstart - start parsing specified data\n"
+		<< "\tstop - stop parsing\n"
+		<< "\texit - stop parsing and close the program\n\n";
+
 
 	std::string input;
 	while (true)
@@ -31,8 +34,9 @@ int main()
 		std::cin >> input;
 		std::cout << "\n";
 		if (input == "exit") break;
-		else if(input == "start") mgr.start_parsing();
-		else if(input == "stop") mgr.stop_parsing();
+		else if (input == "start") mgr.start_parsing();
+		else if (input == "stop") mgr.stop_parsing();
+		else std::cout << "specified command does not exist\n\n";
 	}
 
 	mgr.stop_parsing();

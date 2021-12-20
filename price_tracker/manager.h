@@ -11,6 +11,9 @@
 #include <chrono>
 #include <mutex>
 #include <fstream>
+#include <iostream>
+#include <Time.h>
+#include <ctime>
 
 #include "website.h"
 #include "parse_functions.h"
@@ -26,7 +29,6 @@ private:
 	std::basic_string<unsigned char> output_buffer;
 
 	std::basic_string<unsigned char> output_path;
-	bool need_to_write_header = false;
 
 	bool need_to_process = false;
 	bool is_active = false;
