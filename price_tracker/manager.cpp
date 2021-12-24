@@ -12,38 +12,7 @@ std::basic_string<unsigned char> op_tag((const unsigned char*)"output");
 
 std::basic_string<unsigned char> std_tag((const unsigned char*)"COUT");
 
-std::basic_string<unsigned char> header((const unsigned char*)"date,link,data\n,,,\n");
-
-
-
-std::string get_date()
-{
-	std::time_t time = std::time(0);
-	std::tm now;
-	gmtime_s(&now, &time);
-
-	std::string buffer;
-	buffer.shrink_to_fit();
-
-	buffer += std::to_string(now.tm_year + 1900);
-	buffer += '-';
-
-	buffer += std::to_string(now.tm_mon);
-	buffer += '-';
-
-	buffer += std::to_string(now.tm_mday);
-	buffer += ' ';
-
-	buffer += std::to_string(now.tm_hour);
-	buffer += ':';
-
-	buffer += std::to_string(now.tm_min);
-	buffer += ':';
-
-	buffer += std::to_string(now.tm_sec);
-
-	return buffer;
-}
+std::basic_string<unsigned char> header((const unsigned char*)"\"дата\";\"ссылка\";\"данные\"\n");
 
 
 
@@ -210,8 +179,10 @@ void thread_function(manager* _mgr, unsigned int _index, unsigned int* _threads_
 
 	write_mutex.lock();
 	_mgr->output_buffer.append((const unsigned char*)"\"");
+	_mgr->output_buffer.append((const unsigned char*)get_date().c_str());
+	_mgr->output_buffer.append((const unsigned char*)"\";\"");
 	_mgr->output_buffer.append(_mgr->websites[_index].get_link());
-	_mgr->output_buffer.append((const unsigned char*)"\",\"");
+	_mgr->output_buffer.append((const unsigned char*)"\";\"");
 	_mgr->output_buffer.append(_mgr->websites[_index].get_parsed_data());
 	_mgr->output_buffer.append((const unsigned char*)"\"\n");
 	write_mutex.unlock();
@@ -243,7 +214,8 @@ void thread_control_function(manager* _mgr)
 		{
 			std::ofstream file((const char*)(_mgr->output_path.c_str()), std::ios::app);
 			file.clear();
-			file << '\"' << get_date() << "\"," << STR(_mgr->output_buffer) << "\n";
+			file << STR(_mgr->output_buffer) << "\n";
+			//file << '\"' << get_date() << "\";" << STR(_mgr->output_buffer) << "\n";
 			file.close();
 		}
 

@@ -2,6 +2,8 @@
 #define __PARSE_FUNCTIONS
 
 #include <string>
+#include <Time.h>
+#include <ctime>
 
 static bool chunks_are_equal(const std::basic_string<unsigned char>& _data, const std::basic_string<unsigned char>& _chunk, unsigned int _offset = 0)
 {
@@ -44,6 +46,35 @@ static bool is_digit(unsigned char _char)
 	for (unsigned int i = 0; i < 10; ++i)
 		if (_char == zero + i) return true;
 	return false;
+}
+
+static std::string get_date()
+{
+	std::time_t time = std::time(0);
+	std::tm now;
+	gmtime_s(&now, &time);
+
+	std::string buffer;
+	buffer.shrink_to_fit();
+
+	buffer += std::to_string(now.tm_year + 1900);
+	buffer += '-';
+
+	buffer += std::to_string(now.tm_mon);
+	buffer += '-';
+
+	buffer += std::to_string(now.tm_mday);
+	buffer += ' ';
+
+	buffer += std::to_string(now.tm_hour);
+	buffer += ':';
+
+	buffer += std::to_string(now.tm_min);
+	buffer += ':';
+
+	buffer += std::to_string(now.tm_sec);
+
+	return buffer;
 }
 
 #endif

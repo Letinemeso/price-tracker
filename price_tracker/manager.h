@@ -12,8 +12,6 @@
 #include <mutex>
 #include <fstream>
 #include <iostream>
-#include <Time.h>
-#include <ctime>
 
 #include "website.h"
 #include "parse_functions.h"

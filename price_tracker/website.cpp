@@ -42,7 +42,7 @@ void website::parse_data()
 
 		for (unsigned int i = data_to_parse_offset; i < end_of_data_to_parse; ++i)
 			parsed_data += retreived_data[i];
-		parsed_data += (const unsigned char*)"; ";
+		parsed_data += (const unsigned char*)", ";
 
 		offset = end_of_data_to_parse;
 	}
