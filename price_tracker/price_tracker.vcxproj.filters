@@ -13,17 +13,32 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Исходные файлы\writer_function">
-      <UniqueIdentifier>{770be327-1970-4eef-9add-3d4212e9453c}</UniqueIdentifier>
+    <Filter Include="Исходные файлы\core">
+      <UniqueIdentifier>{ae807022-d017-4f4d-9a12-18c868805d0f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Исходные файлы\website">
-      <UniqueIdentifier>{29afb631-39ae-4596-9ae6-65c498be9f47}</UniqueIdentifier>
+    <Filter Include="Исходные файлы\core\manager">
+      <UniqueIdentifier>{1a58e0b7-b770-49c6-85c3-5079b9a06a78}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Исходные файлы\parse_functions">
+    <Filter Include="Исходные файлы\core\parse_functions">
       <UniqueIdentifier>{11b55540-66a6-4426-bcaa-d875b1383724}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Исходные файлы\manager">
-      <UniqueIdentifier>{1a58e0b7-b770-49c6-85c3-5079b9a06a78}</UniqueIdentifier>
+    <Filter Include="Исходные файлы\core\website">
+      <UniqueIdentifier>{29afb631-39ae-4596-9ae6-65c498be9f47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\core\writer_function">
+      <UniqueIdentifier>{770be327-1970-4eef-9add-3d4212e9453c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\interface">
+      <UniqueIdentifier>{d8865da0-9352-4c0b-b0c0-af0a57803d3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\interface\object">
+      <UniqueIdentifier>{cfd63651-e97a-4271-9728-50bc877f5a17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\opengl_stuff">
+      <UniqueIdentifier>{fca74fd1-cc5c-499e-9cfa-abbe5a6eed77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\opengl_stuff\shader">
+      <UniqueIdentifier>{989135ad-f4e2-4bc2-89ff-0757fe0032af}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -31,24 +46,36 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="website.cpp">
-      <Filter>Исходные файлы\website</Filter>
+      <Filter>Исходные файлы\core\website</Filter>
     </ClCompile>
     <ClCompile Include="manager.cpp">
-      <Filter>Исходные файлы\manager</Filter>
+      <Filter>Исходные файлы\core\manager</Filter>
+    </ClCompile>
+    <ClCompile Include="object.cpp">
+      <Filter>Исходные файлы\interface\object</Filter>
+    </ClCompile>
+    <ClCompile Include="shader.cpp">
+      <Filter>Исходные файлы\opengl_stuff\shader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="writer_function.h">
-      <Filter>Исходные файлы\writer_function</Filter>
+      <Filter>Исходные файлы\core\writer_function</Filter>
     </ClInclude>
     <ClInclude Include="website.h">
-      <Filter>Исходные файлы\website</Filter>
+      <Filter>Исходные файлы\core\website</Filter>
     </ClInclude>
     <ClInclude Include="parse_functions.h">
-      <Filter>Исходные файлы\parse_functions</Filter>
+      <Filter>Исходные файлы\core\parse_functions</Filter>
     </ClInclude>
     <ClInclude Include="manager.h">
-      <Filter>Исходные файлы\manager</Filter>
+      <Filter>Исходные файлы\core\manager</Filter>
+    </ClInclude>
+    <ClInclude Include="object.h">
+      <Filter>Исходные файлы\interface\object</Filter>
+    </ClInclude>
+    <ClInclude Include="shader.h">
+      <Filter>Исходные файлы\opengl_stuff\shader</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

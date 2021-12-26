@@ -1,11 +1,8 @@
-#define CURL_STATICLIB
-#include <string>
-#include <iostream>
-#include <fstream>
+#include <glew.h>
+#include <glfw3.h>
 
-#include "manager.h"
-
-#include <chrono>
+#include "shader.h"
+#include "object.h"
 
 #ifndef STR
 #define STR(str) *(std::string*)&str
@@ -13,7 +10,7 @@
 
 int main()
 {
-	setlocale(0, "rus");
+	/*setlocale(0, "rus");
 
 	manager mgr("data.config");
 	if (!mgr.is_valid())
@@ -39,7 +36,26 @@ int main()
 		else std::cout << "specified command does not exist\n\n";
 	}
 
-	mgr.stop_parsing();
+	mgr.stop_parsing();*/
+
+	glfwInit();
+	GLFWwindow* window = glfwCreateWindow(800, 600, "price-tracker", 0, 0);
+	glfwMakeContextCurrent(window);
+	glewInit();
+
+	shader sdr("vertex_shader.shader", "fragment_shader.shader");
+	if (!sdr.is_valid()) return -1;
+
+	while (!glfwWindowShouldClose(window))
+	{
+		glClear(GL_COLOR_BUFFER_BIT);
+
+
+		glfwPollEvents();
+		glfwSwapBuffers(window);
+	}
+
+	glfwDestroyWindow(window);
 
 	return 0;
 }
