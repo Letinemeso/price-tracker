@@ -5,22 +5,30 @@
 #include <glfw3.h>
 #include <mat4x4.hpp>
 
-
+#include "texture.h"
+#include "shader.h"
 
 class object
 {
 private:
-	unsigned int attrib_array = 0;
-	unsigned int vertex_buffer, color_buffer;
+	unsigned int vertex_array = 0;
+	unsigned int coords_buffer = 0, texture_coords_buffer = 0;
 	float* coords = nullptr;
+	unsigned int coords_count = 0, vertices_count = 0;
 
 	glm::vec3 center;
 
 	const glm::mat4x4& projection_matrix;
 	glm::mat4x4 move_matrix, rotate_matrix, scale_matrix;
 
+	const shader& shdr;
+	Texture* texture = nullptr;
+
 public:
-	object(const glm::mat4x4& _projection_matrix,  float* _coords, const glm::vec3& _center);
+	object(const shader& _shdr, const glm::mat4x4& _projection_matrix,  float* _coords, unsigned int _coords_count, const glm::vec3& _center);
+	~object() noexcept;
+
+	void set_texture(const char* _path) noexcept;
 
 	void move_by(glm::vec3 _how_much) noexcept;
 	void move_by(const glm::vec3& _how_much) noexcept;
@@ -34,6 +42,8 @@ public:
 
 	glm::vec3 get_center_pos() const noexcept;
 
+	void update(float _dt) noexcept;
+	void draw() const noexcept;
 };
 
 

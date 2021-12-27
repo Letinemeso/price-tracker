@@ -1,2 +1,5 @@
-﻿  Main.cpp
+﻿  texture.cpp
+C:\Users\User\Desktop\price_tracker\price_tracker\texture.h(18): warning C4114: Множественное использование одного и того же квалификатора типа.
+C:\Users\User\Desktop\price_tracker\price_tracker\texture.h(18,9): warning C4114: Множественное использование одного и того же квалификатора типа.
+C:\Users\User\Desktop\price_tracker\price_tracker\texture.cpp(18,55): warning C4114: Множественное использование одного и того же квалификатора типа.
   price_tracker.vcxproj -> C:\Users\User\Desktop\price_tracker\Debug\price_tracker.exe

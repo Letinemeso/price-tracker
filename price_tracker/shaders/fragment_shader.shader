@@ -1,10 +1,12 @@
 #version 330 core
 
-in vec3 vertex_out_color;
+in vec2 fragment_in_tex_coords;
 
-out vec4 result_color;
+uniform sampler2D input_texture;
 
-void main()
+out vec4 result_texture;
+
+void main() 
 {
-	result_color = vec4(vertex_out_color, 1.0f);
+	result_texture = vec4(texture(input_texture, fragment_in_tex_coords));
 }

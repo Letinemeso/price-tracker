@@ -1,14 +1,14 @@
 #version 330 core
 
-layout(location = 0) in vec4 coords;
-layout(location = 1) in vec3 vertex_in_color;
+layout(location = 0) in vec4 vertex_in_coords;
+layout(location = 1) in vec2 vertex_in_tex_coords;
 
-uniform mat4 mtrx;
+out vec2 fragment_in_tex_coords;
 
-out vec3 vertex_out_color;
+uniform mat4x4 mtx;
 
-void main()
+void main() 
 {
-	vertex_out_color = vertex_in_color;
-	gl_Position = mtrx * coords;
+	fragment_in_tex_coords = vertex_in_tex_coords;
+	gl_Position = mtx * vertex_in_coords;
 }
