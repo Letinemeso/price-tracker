@@ -78,4 +78,12 @@
       <Filter>Исходные файлы\opengl_stuff\shader</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\fragment_shader.shader">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="shaders\vertex_shader.shader">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+  </ItemGroup>
 </Project>

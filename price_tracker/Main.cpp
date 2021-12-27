@@ -43,8 +43,12 @@ int main()
 	glfwMakeContextCurrent(window);
 	glewInit();
 
-	shader sdr("vertex_shader.shader", "fragment_shader.shader");
+
+
+	shader sdr("shaders/vertex_shader.shader", "shaders/fragment_shader.shader");
 	if (!sdr.is_valid()) return -1;
+
+
 
 	while (!glfwWindowShouldClose(window))
 	{

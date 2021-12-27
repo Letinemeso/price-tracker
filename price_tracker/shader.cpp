@@ -3,7 +3,8 @@
 #ifdef SHADER_ASSERT(cond, msg)
 #undef SHADER_ASSERT(cond, msg)
 #endif
-#define SHADER_ASSERT(cond, msg) if(!cond) std::cout << msg << '\n'; return
+#define SHADER_ASSERT(cond, msg) if(!cond) { std::cout << msg << '\n'; return; }
+
 
 
 bool shader::get_source(const char* _path, char** _buffer, unsigned int* _size) noexcept
@@ -17,7 +18,7 @@ bool shader::get_source(const char* _path, char** _buffer, unsigned int* _size) 
 
 	source.seekg(0, std::ios::end);
 	*_size = source.tellg();
-	if (*_size > 0) return false;
+	if (*_size == 0) return false;
 	source.seekg(0, std::ios::beg);
 
 	*_buffer = new char[*_size + 1];
@@ -74,7 +75,25 @@ shader::~shader()
 	glDeleteShader(fragment_shader);
 }
 
+
+
 bool shader::is_valid() const noexcept
 {
 	return valid;
 }
+
+
+
+bool shader::set_matrix(const char* _name, const glm::mat4x4& _matrix) const noexcept
+{
+	int location = glGetUniformLocation(program, _name);
+	if (location < 0) return false;
+
+	glUniformMatrix4fv(location, 1, GL_FALSE, &_matrix[0][0]);
+
+	return true;
+}
+
+
+
+#undef SHADER_ASSERT(cond, msg)
