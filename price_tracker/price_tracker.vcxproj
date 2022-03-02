@@ -156,10 +156,14 @@
     <ClCompile Include="object.cpp" />
     <ClCompile Include="shader.cpp" />
     <ClCompile Include="quad.cpp" />
+    <ClCompile Include="opengl_mgr.cpp" />
+    <ClCompile Include="vertices.cpp" />
     <ClCompile Include="texture.cpp" />
     <ClCompile Include="website.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="opengl_mgr.h" />
+    <ClInclude Include="vertices.h" />
     <ClInclude Include="texture.h" />
     <ClInclude Include="quad.h" />
     <ClInclude Include="shader.h" />

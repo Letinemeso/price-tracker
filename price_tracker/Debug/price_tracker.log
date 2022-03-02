@@ -1,5 +1,62 @@
-﻿  texture.cpp
-C:\Users\User\Desktop\price_tracker\price_tracker\texture.h(18): warning C4114: Множественное использование одного и того же квалификатора типа.
-C:\Users\User\Desktop\price_tracker\price_tracker\texture.h(18,9): warning C4114: Множественное использование одного и того же квалификатора типа.
-C:\Users\User\Desktop\price_tracker\price_tracker\texture.cpp(18,55): warning C4114: Множественное использование одного и того же квалификатора типа.
-  price_tracker.vcxproj -> C:\Users\User\Desktop\price_tracker\Debug\price_tracker.exe
+﻿  Main.cpp
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\texture.h(16): warning C4114: Множественное использование одного и того же квалификатора типа.
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\texture.h(16,9): warning C4114: Множественное использование одного и того же квалификатора типа.
+  manager.cpp
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\website.h(8,10): fatal error C1083: Не удается открыть файл включение: curl/curl.h: No such file or directory,
+  object.cpp
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\texture.h(16): warning C4114: Множественное использование одного и того же квалификатора типа.
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\texture.h(16,9): warning C4114: Множественное использование одного и того же квалификатора типа.
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\object.cpp(4,2): error C2511: object::object(const shader &,const glm::mat4x4 &,float *,unsigned int,const glm::vec3 &): перегруженная функция-член не найдена в "object"
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\object.h(11): message : см. объявление "object"
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\object.cpp(5,1): error C2550: object::{ctor}: список инициализации конструктора должен использоваться только в месте определения конструктора
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\object.cpp(12,2): error C3079: список инициализаторов не может использоваться в качестве правого операнда оператора назначения
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\object.cpp(13,2): error C2597: недопустимая ссылка на нестатический член "object::rotate_matrix"
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\object.h(22): message : см. объявление "object::rotate_matrix"
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\object.cpp(14,2): error C2597: недопустимая ссылка на нестатический член "object::scale_matrix"
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\object.h(22): message : см. объявление "object::scale_matrix"
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\object.cpp(16,35): error C2597: недопустимая ссылка на нестатический член "object::coords_count"
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\object.cpp(16,35): error C3867: "object::coords_count": нестандартный синтаксис; используйте "&", чтобы создать указатель на член
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\object.cpp(16,2): error C2597: недопустимая ссылка на нестатический член "object::vertices_count"
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\object.h(17): message : см. объявление "object::vertices_count"
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\object.cpp(18,24): error C2597: недопустимая ссылка на нестатический член "object::vertex_array"
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\object.h(14): message : см. объявление "object::vertex_array"
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\object.cpp(18,36): error C2664: "void (GLsizei,GLuint *)": невозможно преобразовать аргумент 2 из "unsigned int object::* " в "GLuint *"
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\object.cpp(18,23): message : Не существует контекста, в котором такое преобразование возможно
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\object.cpp(19,20): error C2597: недопустимая ссылка на нестатический член "object::vertex_array"
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\object.h(14): message : см. объявление "object::vertex_array"
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\object.cpp(24,19): error C2597: недопустимая ссылка на нестатический член "object::coords_buffer"
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\object.h(15): message : см. объявление "object::coords_buffer"
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\object.cpp(24,32): error C2664: "void (GLsizei,GLuint *)": невозможно преобразовать аргумент 2 из "unsigned int object::* " в "GLuint *"
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\object.cpp(24,18): message : Не существует контекста, в котором такое преобразование возможно
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\object.cpp(25,32): error C2597: недопустимая ссылка на нестатический член "object::coords_buffer"
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\object.h(15): message : см. объявление "object::coords_buffer"
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\object.cpp(26,61): error C2597: недопустимая ссылка на нестатический член "object::coords_count"
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\object.cpp(26,61): error C3867: "object::coords_count": нестандартный синтаксис; используйте "&", чтобы создать указатель на член
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\object.cpp(26,61): error C2568: *: не удается разрешить перегрузку функции
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\object.cpp(26,66): error C2597: недопустимая ссылка на нестатический член "object::coords"
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\object.h(16): message : см. объявление "object::coords"
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\object.cpp(27,27): error C2597: недопустимая ссылка на нестатический член "object::vertices_count"
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\object.h(17): message : см. объявление "object::vertices_count"
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\object.cpp(38,19): error C2597: недопустимая ссылка на нестатический член "object::texture_coords_buffer"
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\object.h(15): message : см. объявление "object::texture_coords_buffer"
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\object.cpp(38,40): error C2664: "void (GLsizei,GLuint *)": невозможно преобразовать аргумент 2 из "unsigned int object::* " в "GLuint *"
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\object.cpp(38,18): message : Не существует контекста, в котором такое преобразование возможно
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\object.cpp(39,32): error C2597: недопустимая ссылка на нестатический член "object::texture_coords_buffer"
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\object.h(15): message : см. объявление "object::texture_coords_buffer"
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\object.cpp(41,27): error C2597: недопустимая ссылка на нестатический член "object::vertices_count"
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\object.h(17): message : см. объявление "object::vertices_count"
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\object.cpp(59,31): error C2059: синтаксическая ошибка: )
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\object.cpp(60,1): error C2143: синтаксическая ошибка: отсутствие ";" перед "}"
+  shader.cpp
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\shader.cpp(3,1): warning C4067: непредвиденные лексемы за директивой препроцессора, требуется newline
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\shader.cpp(20,23): warning C4244: =: преобразование "std::streamoff" в "unsigned int", возможна потеря данных
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\shader.cpp(99,1): warning C4067: непредвиденные лексемы за директивой препроцессора, требуется newline
+  quad.cpp
+  texture.cpp
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\texture.h(16): warning C4114: Множественное использование одного и того же квалификатора типа.
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\texture.h(16,9): warning C4114: Множественное использование одного и того же квалификатора типа.
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\texture.cpp(18,55): warning C4114: Множественное использование одного и того же квалификатора типа.
+  website.cpp
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\website.h(8,10): fatal error C1083: Не удается открыть файл включение: curl/curl.h: No such file or directory,
+  Создание кода...
+C:\Users\User\Desktop\Snare\Программы\Repository\price_tracker\price_tracker\shader.cpp(29): warning C4715: shader::get_source: значение возвращается не при всех путях выполнения

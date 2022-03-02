@@ -3,8 +3,14 @@
 
 #include "stb_image.h"
 
+#include "opengl_mgr.h"
+
 class Texture 
 {
+private:
+	bool valid = false;
+
+private:
 	unsigned int textureBuffer;
 	int width, height;
 
@@ -13,9 +19,11 @@ class Texture
 	int textureUniformLocation;
 public:
 	Texture() = delete;
-	Texture(const char* path, const unsigned int const* program, const char* uniformName);
+	Texture(const char* path);
 
 	~Texture();
+
+	bool is_valid() const { return valid; }
 
 	void setTexture();
 };

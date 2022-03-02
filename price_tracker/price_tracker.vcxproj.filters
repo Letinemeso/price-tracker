@@ -46,6 +46,12 @@
     <Filter Include="Исходные файлы\opengl_stuff\texture">
       <UniqueIdentifier>{8a223370-91ec-45b2-9b2d-9ffd34bbd7d8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Исходные файлы\opengl_stuff\vertices">
+      <UniqueIdentifier>{69c734ba-25be-4e51-9159-e927d09d4a65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\opengl_stuff\opengl_mgr">
+      <UniqueIdentifier>{c24cd0a1-721c-4a84-a4b9-701494b3d928}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -68,6 +74,12 @@
     </ClCompile>
     <ClCompile Include="texture.cpp">
       <Filter>Исходные файлы\opengl_stuff\texture</Filter>
+    </ClCompile>
+    <ClCompile Include="vertices.cpp">
+      <Filter>Исходные файлы\opengl_stuff\vertices</Filter>
+    </ClCompile>
+    <ClCompile Include="opengl_mgr.cpp">
+      <Filter>Исходные файлы\opengl_stuff\opengl_mgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -94,6 +106,12 @@
     </ClInclude>
     <ClInclude Include="texture.h">
       <Filter>Исходные файлы\opengl_stuff\texture</Filter>
+    </ClInclude>
+    <ClInclude Include="vertices.h">
+      <Filter>Исходные файлы\opengl_stuff\vertices</Filter>
+    </ClInclude>
+    <ClInclude Include="opengl_mgr.h">
+      <Filter>Исходные файлы\opengl_stuff\opengl_mgr</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

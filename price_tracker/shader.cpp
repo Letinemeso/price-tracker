@@ -82,6 +82,11 @@ bool shader::is_valid() const noexcept
 	return valid;
 }
 
+int shader::get_uniform_location(const char* _uniform_name) const noexcept
+{
+	return glGetUniformLocation(program, _uniform_name);
+}
+
 
 
 bool shader::set_matrix(const char* _name, const glm::mat4x4& _matrix) const noexcept

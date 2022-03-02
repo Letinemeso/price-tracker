@@ -30,6 +30,7 @@ public:
 	~shader();
 
 	bool is_valid() const noexcept;
+	int get_uniform_location(const char* _uniform_name) const noexcept;
 
 	bool set_matrix(const char* _name, const glm::mat4x4& _matrix) const noexcept;
 

@@ -7,18 +7,22 @@ bool checkExistance(const char* path)
 {
 	std::ifstream file = std::ifstream(path, std::ios::in);
 
-	if (file.is_open()) {
+	if (file.is_open()) 
+	{
 		file.close();
 		return true;
 	}
-	else {
-		return false;
-	}
+	else return false;
 }
 
-Texture::Texture(const char* path, const unsigned int const* program, const char* uniformName) 
+Texture::Texture(const char* path) 
 {
-	if (checkExistance(path) == true) {
+	//TODO: сделать очищение текстуры перед загрузкой новой
+
+	valid = false;
+
+	if (checkExistance(path) == true) 
+	{
 		stbi_set_flip_vertically_on_load(1);
 		imageBuffer = stbi_load(path, &width, &height, 0, 4);
 
@@ -33,16 +37,14 @@ Texture::Texture(const char* path, const unsigned int const* program, const char
 
 		stbi_image_free(imageBuffer);
 
-		textureUniformLocation = glGetUniformLocation(*program, uniformName);
+		textureUniformLocation = mgr.get_shader()->get_uniform_location(mgr.get_texture_uniform_name());
 
-		if (textureUniformLocation == -1) 
-		{
-			std::cout << "uniform sampler \"" << uniformName << "\" not found!\n";
-		}
+		if (textureUniformLocation == -1)
+			std::cout << "uniform sampler \"" << mgr.get_texture_uniform_name() << "\" not found!\n";
+		else
+			valid = true;
 	}
-	else {
-		std::cout << "Texture not found!\n";
-	}
+	else std::cout << "Texture not found!\n";
 }
 
 Texture::~Texture() 

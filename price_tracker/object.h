@@ -5,6 +5,8 @@
 #include <glfw3.h>
 #include <mat4x4.hpp>
 
+#include "opengl_mgr.h"
+
 #include "texture.h"
 #include "shader.h"
 
@@ -18,17 +20,16 @@ private:
 
 	glm::vec3 center;
 
-	const glm::mat4x4& projection_matrix;
+	glm::mat4x4* projection_matrix;
 	glm::mat4x4 move_matrix, rotate_matrix, scale_matrix;
 
-	const shader& shdr;
 	Texture* texture = nullptr;
 
 public:
-	object(const shader& _shdr, const glm::mat4x4& _projection_matrix,  float* _coords, unsigned int _coords_count, const glm::vec3& _center);
+	object();
 	~object() noexcept;
 
-	void set_texture(const char* _path) noexcept;
+	bool set_texture(const char* _path) noexcept;
 
 	void move_by(glm::vec3 _how_much) noexcept;
 	void move_by(const glm::vec3& _how_much) noexcept;
